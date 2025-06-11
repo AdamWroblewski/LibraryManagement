@@ -1,0 +1,42 @@
+<h2>Book List</h2>
+<ul *ngIf="books.length; else loading">
+<div class="search-bar">
+  <label>
+    Books:
+    <input type="text" [(ngModel)]="bookTitle" class="search-input" placeholder="Search by title" />
+  </label>
+  <label>
+    Author:
+    <input type="text" [(ngModel)]="author" class="search-input" placeholder="Search by author" />
+  </label>
+</div>
+
+<table class="book-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>ISBN</th>
+      <th>Year</th>
+      <th>Publisher</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of filteredBooks()">
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.isbn }}</td>
+      <td>{{ book.publicationYear }}</td>
+      <td>{{ book.publisher }}</td>
+      <td>
+        <button type="button">Details</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</ul>
+<ng-template #loading>
+    <p>Loading books...</p>
+</ng-template>
+<p *ngIf="error" class="error">{{ error }}</p>

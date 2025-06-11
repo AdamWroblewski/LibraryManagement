@@ -1,1 +1,14 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <aside class="sidebar" *ngIf="auth.isLoggedIn()">
+    <nav>
+        <ul>
+        <li><a routerLink="/dashboard/home" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/dashboard/books" routerLinkActive="active">Books</a></li>
+        <li><a (click)="auth.logout()">Logout</a></li>
+        </ul>
+    </nav>
+    </aside>
+    <main class="main-content">
+    <router-outlet></router-outlet>
+    </main>
+</div>
