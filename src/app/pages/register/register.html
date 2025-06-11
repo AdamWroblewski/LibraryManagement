@@ -1,0 +1,59 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
+  <h2>Register</h2>
+
+  <div>
+    <label for="firstName">First Name</label>
+    <input id="firstName" type="text" formControlName="firstName" required />
+    <div *ngIf="form.get('firstName')?.touched && form.get('firstName')?.invalid" class="error">
+      <span *ngIf="form.get('firstName')?.errors?.['required']">First name is required.</span>
+    </div>
+    <div *ngIf="errorMap['firstName']" class="error">
+      {{ errorMap['firstName'] }}
+    </div>
+  </div>
+
+  <div>
+    <label for="lastName">Last Name</label>
+    <input id="lastName" type="text" formControlName="lastName" required />
+    <div *ngIf="form.get('lastName')?.touched && form.get('lastName')?.invalid" class="error">
+      <span *ngIf="form.get('lastName')?.errors?.['required']">Last name is required.</span>
+    </div>
+    <div *ngIf="errorMap['lastName']" class="error">
+      {{ errorMap['lastName'] }}
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" required />
+    <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="error">
+      <span *ngIf="form.get('email')?.errors?.['required']">Email is required.</span>
+      <span *ngIf="form.get('email')?.errors?.['email']">Enter a valid email.</span>
+    </div>
+    <div *ngIf="errorMap['email']" class="error">
+      {{ errorMap['email'] }}
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" required />
+    <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="error">
+      <span *ngIf="form.get('password')?.errors?.['required']">Password is required.</span>
+      <span *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+    </div>
+    <div *ngIf="errorMap['password']" class="error">
+      {{ errorMap['password'] }}
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Register</button>
+  <div *ngIf="errorMap['general error']" class="error-list">
+    {{ errorMap['general error'] }}
+  </div>
+
+  <div class="auth-nav">
+    <span>Already have an account?</span>
+    <a routerLink="/login">Login</a>
+  </div>
+</form>
