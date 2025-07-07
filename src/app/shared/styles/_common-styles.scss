@@ -45,7 +45,7 @@
       outline: none;
     }
   }
-  button[type="submit"] {
+  button {
     background: #3182ce;
     color: #fff;
     border: none;
@@ -88,6 +88,7 @@
 
 .error-list {
   margin-top: 1rem;
+  padding-bottom: 1rem;
   color: #e53e3e;
   text-align: center;
 }

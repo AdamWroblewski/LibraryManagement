@@ -4,6 +4,8 @@
         <ul>
         <li><a routerLink="/dashboard/home" routerLinkActive="active">Home</a></li>
         <li><a routerLink="/dashboard/books" routerLinkActive="active">Books</a></li>
+        <li><a routerLink="/dashboard/employee-panel" routerLinkActive="active" 
+            *ngIf="auth.getUserRoles().includes('Admin') || auth.getUserRoles().includes('Librarian')">Employee panel</a></li>
         <li><a (click)="auth.logout()">Logout</a></li>
         </ul>
     </nav>

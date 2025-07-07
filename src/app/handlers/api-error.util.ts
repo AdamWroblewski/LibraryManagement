@@ -16,16 +16,21 @@ export function extractApiErrors(error: any): { [key: string]: string } {
   // 2. Custom array of error objects with message property (e.g. { errors: [{ message: "...", ... }] })
   if (error?.error?.errors && Array.isArray(error.error.errors)) {
     error.error.errors.forEach((e: any) => {
-      // If you have metadata/field info, use it; otherwise, use a general key
       const key = (e.field || e.metadata?.field || e.propertyName || 'general error').toLowerCase();
       result[key] = e.errorMessage || e.message || JSON.stringify(e);
     });
     return result;
   }
 
+  
   // 3. Simple string error
   if (typeof error?.error?.errors === 'string') {
     result['general error'] = error.error.errors;
+    return result;
+  }
+  
+  if (typeof error?.error === 'object') {
+    result['general error'] = error.error[0].message;
     return result;
   }
 

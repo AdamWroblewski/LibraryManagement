@@ -14,24 +14,24 @@
 <table class="book-table">
   <thead>
     <tr>
+      <th>Actions</th>
       <th>Title</th>
       <th>Author</th>
       <th>ISBN</th>
       <th>Year</th>
       <th>Publisher</th>
-      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let book of filteredBooks()">
+      <td>
+        <button type="button" (click)="openDetails(book)">Details</button>
+      </td>
       <td>{{ book.title }}</td>
       <td>{{ book.author }}</td>
       <td>{{ book.isbn }}</td>
       <td>{{ book.publicationYear }}</td>
       <td>{{ book.publisher }}</td>
-      <td>
-        <button type="button" (click)="openDetails(book)">Details</button>
-      </td>
     </tr>
   </tbody>
 </table>

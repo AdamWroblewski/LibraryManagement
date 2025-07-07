@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable, computed, signal } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +20,11 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, credentials);
   }  
   
+  hasAnyRole(roles: string[]): boolean {
+    debugger;
+    const userRoles = this.getUserRoles(); // e.g., from JWT or user profile
+    return roles.some(role => userRoles.includes(role));
+  }
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -29,5 +35,22 @@ export class AuthService {
     localStorage.removeItem('token');
     this._token.set(null);
     window.location.href = '/login';
+  }
+    
+  getUserRoles(): string[] {
+    const token = localStorage.getItem('token');
+    if (!token) return [];
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const roleClaim = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+      const claimValue = decoded[roleClaim];
+      if (!claimValue) {
+        return [];
+      } 
+      return Array.isArray(claimValue) ? claimValue : [claimValue];
+    } catch {
+      return [];
+    }
   }
 }

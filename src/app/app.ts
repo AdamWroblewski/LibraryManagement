@@ -12,8 +12,13 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   constructor(public authService: AuthService) {}
+  roles: string[] = [];
 
   logout() {
     this.authService.logout();
+  }
+
+  ngOnInit() {
+    this.roles = this.authService.getUserRoles();
   }
 }

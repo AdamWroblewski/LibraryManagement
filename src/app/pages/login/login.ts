@@ -5,13 +5,18 @@ import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { extractApiErrors } from '../../handlers/api-error.util';
-
-
+import { GeneralErrorComponent } from '../../shared/general-error-component/general-error-component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    CommonModule, 
+    RouterModule,
+    GeneralErrorComponent
+  ],
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })

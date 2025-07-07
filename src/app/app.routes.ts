@@ -10,10 +10,11 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard], 
     children: [
       { path: 'home', component: DashboardHomeComponent },
       { path: 'books', component: BooksComponent },
+      { path: 'employee-panel', component: BooksComponent, canActivate: [authGuard],  data: { roles: ['Admin', 'Employee'] } },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   },

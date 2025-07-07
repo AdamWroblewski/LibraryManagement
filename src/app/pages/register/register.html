@@ -48,9 +48,7 @@
   </div>
 
   <button type="submit" [disabled]="form.invalid">Register</button>
-  <div *ngIf="errorMap['general error']" class="error-list">
-    {{ errorMap['general error'] }}
-  </div>
+  <app-general-error-component [errorMap]="errorMap"></app-general-error-component>
 
   <div class="auth-nav">
     <span>Already have an account?</span>

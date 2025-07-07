@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { BookDto } from '../../models/book-dto';
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookDetailsModalComponent } from '../book-details-modal/book-details-modal';
 
+import { BookDto } from '../../models/book-dto';
+import { ActiveBookLoanDto } from '../../models/active-book-loan-dto';
 
 @Component({
   selector: 'app-books',
@@ -37,8 +38,13 @@ export class BooksComponent implements OnInit {
   }  
 
   openDetails(book: BookDto) {
-    this.dialog.open(BookDetailsModalComponent, {
-      data: book
+    this.http.get<ActiveBookLoanDto[]>('https://localhost:7097/api/bookloans/activeloans/' + book.id).subscribe({
+      next: (activeLoan) => {
+        this.dialog.open(BookDetailsModalComponent, {
+          data: { book, activeLoan }
+        });
+      },
+      error: (err) => this.error = 'Failed to load books.'
     });
   }
 

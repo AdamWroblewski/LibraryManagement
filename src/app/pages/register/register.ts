@@ -2,14 +2,21 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service'; // Adjust the path as needed
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { extractApiErrors } from '../../handlers/api-error.util'; // Adjust path as needed 
+import { extractApiErrors } from '../../handlers/api-error.util';
+import { GeneralErrorComponent } from '../../shared/general-error-component/general-error-component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterModule,
+    GeneralErrorComponent
+  ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
 })
@@ -31,13 +38,11 @@ export class RegisterComponent {
 
   errorMap: { [key: string]: string } = {};
 
-
   onSubmit() {
     if (this.form.valid) {
       this.authService.register(this.form.value).subscribe({
         next: (response) => {
           this.errorMap = {};
-          // Optionally redirect or show success message
           this.router.navigate(['/login']);
         },
         error: (error) => {
