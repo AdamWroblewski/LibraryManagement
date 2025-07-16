@@ -21,7 +21,6 @@ export class AuthService {
   }  
   
   hasAnyRole(roles: string[]): boolean {
-    debugger;
     const userRoles = this.getUserRoles(); // e.g., from JWT or user profile
     return roles.some(role => userRoles.includes(role));
   }

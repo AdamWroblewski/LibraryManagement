@@ -2,7 +2,6 @@
 
 export function extractApiErrors(error: any): { [key: string]: string } {
   const result: { [key: string]: string } = {};
-  debugger;
   // 1. RFC 7807/9110 Problem Details validation error
   if (error?.error?.errors && typeof error.error.errors === 'object' && !Array.isArray(error.error.errors)) {
     // error.error.errors is a dictionary: { field: [messages] }
