@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookDetailsModalComponent } from '../book-details-modal/book-details-modal';
+import { environment } from '../../../environments/environment';
 
 import { BookDto } from '../../models/book-dto';
 import { ActiveBookLoanDto } from '../../models/active-book-loan-dto';
@@ -28,17 +29,19 @@ export class BooksComponent implements OnInit {
   bookTitle = '';
   author = '';
 
+  private apiUrl = environment.apiUrl;
+
   constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.http.get<BookDto[]>('https://localhost:7097/api/books').subscribe({
+    this.http.get<BookDto[]>(`${this.apiUrl}` + 'books').subscribe({
       next: (data) => this.books = data,
       error: (err) => this.error = 'Failed to load books.'
     });
   }  
 
   openDetails(book: BookDto) {
-    this.http.get<ActiveBookLoanDto[]>('https://localhost:7097/api/bookloans/activeloans/' + book.id).subscribe({
+    this.http.get<ActiveBookLoanDto[]>(`${this.apiUrl}` + 'bookloans/activeloans/' + book.id).subscribe({
       next: (activeLoan) => {
         this.dialog.open(BookDetailsModalComponent, {
           data: { book, activeLoan }
