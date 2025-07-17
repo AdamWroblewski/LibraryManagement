@@ -14,11 +14,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }) {
-    return this.http.post<{ token: string }>(`${this.apiUrl}login`, credentials);
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials);
   }
 
   register(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}register`, credentials);
+    return this.http.post(`${this.apiUrl}/register`, credentials);
   }  
   
   hasAnyRole(roles: string[]): boolean {

@@ -37,7 +37,6 @@ export class BookDetailsModalComponent {
     private http: HttpClient, 
     private datePipe: DatePipe) {
       if (data.activeLoan != null) {
-        debugger;
         this.successMessage = `You already have an active reservation for this book. 
           Reservation is valid until ${this.datePipe.transform(data.activeLoan.reservationDate, 'dd.MM.yyyy')}`;
       }
