@@ -6,7 +6,9 @@ import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BookDetailsModalComponent } from '../book-details-modal/book-details-modal';
+import { AddBookModalComponent } from '../add-book-modal-component/add-book-modal';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../services/auth.service';
 
 import { BookDto } from '../../models/book-dto';
 import { ActiveBookLoanDto } from '../../models/active-book-loan-dto';
@@ -31,7 +33,7 @@ export class BooksComponent implements OnInit {
 
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  constructor(private http: HttpClient, private dialog: MatDialog, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.http.get<BookDto[]>(`${this.apiUrl}` + 'books').subscribe({
@@ -44,6 +46,7 @@ export class BooksComponent implements OnInit {
     this.http.get<ActiveBookLoanDto[]>(`${this.apiUrl}` + 'bookloans/activeloans/' + book.id).subscribe({
       next: (activeLoan) => {
         this.dialog.open(BookDetailsModalComponent, {
+          width: '560px',
           data: { book, activeLoan }
         });
       },
@@ -60,5 +63,19 @@ export class BooksComponent implements OnInit {
       book.title.toLowerCase().includes(bookTitle) &&
       book.author.toLowerCase().includes(author));
     return books;
+  }
+
+  openAddBookDialog(): void {
+    const dialogRef = this.dialog.open(AddBookModalComponent, {
+      width: '500px',
+      // można przekazać dodatkowe dane, jeśli potrzebne
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Odśwież listę książek, jeśli nowa została dodana
+        this.ngOnInit();
+      }
+    });
   }
 }

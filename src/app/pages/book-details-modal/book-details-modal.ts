@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';   
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { Inject } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { extractApiErrors } from '../../handlers/api-error.util';
@@ -21,6 +22,7 @@ import { ActiveBookLoanDto } from '../../models/active-book-loan-dto';
     MatDialogModule, 
     CommonModule, 
     GeneralErrorComponent, 
+    MatButtonModule,
     SuccessResponseComponent
   ],
   providers: [DatePipe],

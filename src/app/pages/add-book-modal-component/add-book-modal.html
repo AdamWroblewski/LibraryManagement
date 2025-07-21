@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Dodaj nową książkę</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="bookForm" id="add-book-form" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <label for="title">Title</label>
+      <input id="title" formControlName="title" required>
+      <div *ngIf="bookForm.get('title')?.touched && bookForm.get('title')?.invalid" class="error">
+        <span *ngIf="bookForm.get('title')?.errors?.['required']">Title is required</span>
+      </div>
+    </div>
+
+    <!-- Pole Autor -->
+    <div class="form-field">
+      <label for="author">Author</label>
+      <input id="author" formControlName="author" required>
+      <div *ngIf="bookForm.get('author')?.touched && bookForm.get('author')?.invalid" class="error">
+        <span *ngIf="bookForm.get('author')?.errors?.['required']">Author is required</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="isbn">ISBN</label>
+      <input id="isbn" formControlName="isbn" required>
+      <div *ngIf="bookForm.get('isbn')?.touched && bookForm.get('isbn')?.invalid" class="error">
+        <span *ngIf="bookForm.get('isbn')?.errors?.['required']">ISBN is required</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="publicationYear">Publication year</label>
+      <input id="publicationYear" type="number" formControlName="publicationYear" required>
+      <div *ngIf="bookForm.get('publicationYear')?.touched && bookForm.get('publicationYear')?.invalid" class="error">
+        <span *ngIf="bookForm.get('publicationYear')?.errors?.['required']">Publication year is required</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="publisher">Publisher</label>
+      <input id="publisher" formControlName="publisher" required>
+       <div *ngIf="bookForm.get('publisher')?.touched && bookForm.get('publisher')?.invalid" class="error">
+        <span *ngIf="bookForm.get('publisher')?.errors?.['required']">Publisher is required</span>
+      </div>
+    </div>
+
+  </form>
+  <app-general-error-component [errorMap]="errorMap"></app-general-error-component>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" type="submit" form="add-book-form" [disabled]="bookForm.invalid">
+    Add book
+  </button>
+</mat-dialog-actions>

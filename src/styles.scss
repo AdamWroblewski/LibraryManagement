@@ -2,6 +2,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use 'sass:color';
 
 html {
   @include mat.theme((
@@ -13,7 +14,120 @@ html {
     typography: Roboto,
     density: 0,
   ));
-}/* You can add global styles to this file, and also import other style files */
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// ---------------------------- modal styles------------------------------------
+$primary-color: #3182ce;
+$primary-color-hover: #2c73b8;
+$disabled-background: #e0e0e0;
+$disabled-text: #a0a0a0;
+$error-color: #e53e3e;
+$border-color: #ccc;
+$title-color: #2d3748;
+$content-color: #4a5568;
+
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  min-width: 560px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  padding: 0;
+}
+
+[mat-dialog-title] {
+  color: $title-color;
+  font-weight: 600;
+  font-size: 1.25rem;
+  padding: 24px 24px 16px;
+  margin: 0;
+}
+
+mat-dialog-content {
+  color: $content-color;
+  padding: 0 24px 24px;
+  margin: 0;
+
+  p {
+    margin: 12px 0;
+    font-size: 1rem;
+    strong {
+      font-weight: 600;
+      color: $title-color;
+    }
+  }
+}
+
+mat-dialog-actions {
+  padding: 0 24px 24px;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.mat-mdc-dialog-actions .mat-mdc-button-base {
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: $primary-color;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-color-hover;
+  }
+
+  &.mdc-button--disabled {
+    background-color: $disabled-background;
+    color: $disabled-text;
+  }
+}
+
+.mat-mdc-button {
+  color: $primary-color;
+
+  &:hover:not(:disabled) {
+    background-color: color.adjust($primary-color, $lightness: 38%);
+  }
+}
+
+#add-book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+  }
+
+  input {
+    padding: 10px 12px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-size: 1rem;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+      outline: none;
+    }
+  }
+
+  .error {
+    color: $error-color;
+    font-size: 0.85rem;
+    padding-top: 4px;
+  }
+}
+
+// -------------------------end modal styles------------------------------------

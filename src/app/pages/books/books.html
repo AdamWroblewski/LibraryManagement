@@ -1,4 +1,7 @@
 <h2>Book List</h2>
+<button type="button" *ngIf="authService.hasAnyRole(['Admin', 'Employee'])" (click)="openAddBookDialog()">
+  Add Book
+</button>
 <ul *ngIf="books.length; else loading">
 <div class="search-bar">
   <label>

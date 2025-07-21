@@ -6,10 +6,10 @@
       <p><strong>Publisher:</strong> {{ data.book.publisher }}</p>
       <p><strong>Year:</strong> {{ data.book.publicationYear }}</p>
     </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Close</button>
-      <button type="button" (click)="onSubmit(data.book.id)" mat-button [disabled]="data.activeLoan != null">Reserve</button>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" (click)="onSubmit(data.book.id)" type="submit" mat-button [disabled]="successMessage || data.activeLoan != null">Reserve</button>
     </mat-dialog-actions>
     <app-general-error-component [errorMap]="errorMap"></app-general-error-component>
-    <app-success-response-component [successMessage]="successMessage" ></app-success-response-component>
+    <app-success-response-component [successMessage]="successMessage"></app-success-response-component>
 </div>
